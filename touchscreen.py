@@ -66,6 +66,9 @@ class Button:
     def is_clicked(self, pos):
         return self.rect.collidepoint(pos)
     
+    def action(self):
+        pass
+    
     def start_click_effect(self):
         self.clicked = True
     
@@ -96,6 +99,7 @@ while running:
             for button in buttons:
                 if button.is_clicked(mouse_pos):
                     print(f"{button.text} wurde gedrückt!")
+                    button.action()
                     button.start_click_effect()  # Startet die Verkleinerung des Buttons
                     flow = True
                     
