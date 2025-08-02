@@ -1,5 +1,17 @@
 import pygame
 import sys
+import board
+import busio
+from adafruit_pca9685 import PCA9685
+from adafruit_motor import servo
+import time
+
+i2c = busio.I2C(board.SCL, board.SDA)
+pca = PCA9685(i2c)
+pca.frequency = 50
+
+chan = pca.channels[0]
+my_servo = servo.Servo(chan, min_pulse=600, max_pulse=2400)
 
 distance = 55
 length = 268
@@ -67,14 +79,14 @@ class Button:
         return self.rect.collidepoint(pos)
     
     def action(self):
-        pass
+        my_servo.angle = 90
     
     def start_click_effect(self):
         self.clicked = True
     
     def reset_click_effect(self):
         self.clicked = False
-        
+        my_servo.angle = 0
 
 # Erstelle eine Liste von Buttons
 buttons = [
